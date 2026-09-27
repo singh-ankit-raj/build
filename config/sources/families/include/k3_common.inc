@@ -16,7 +16,10 @@ declare -g INSTALL_HEADERS="yes"
 
 [[ -v "TI_PACKAGES" ]] || declare -g TI_PACKAGES=()
 if [[ "${CC33XX_SUPPORT}" == "yes" ]]; then
-	if [[ "${RELEASE}" == "trixie" || "${RELEASE}" == "noble" ]]; then
+	# noble onwards: the TI "noble"/"trixie" suite packages require
+	# libwayland-client0 >= 1.23, which noble (1.22) does not have but
+	# resolute (1.24) does, so every Ubuntu release from noble up qualifies.
+	if [[ "${RELEASE}" == "trixie" || "${RELEASE}" == "noble" || "${RELEASE}" == "resolute" ]]; then
 		TI_PACKAGES+=("cc33xx-fw" "cc33xx-target-scripts" "cc33conf" "cc33calibrator")
 	fi
 fi
